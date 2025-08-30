@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import useMetadataStore from "@/store/metadataStore";
 
-const proxy = "http://localhost:8080/proxy"; // Adjust if needed
+const proxy = "http://34.47.171.137:8080/proxy"; // Adjust if needed
 
 export default function Article() {
   const selectedCaseId = useMetadataStore((state) => state.selectedCaseId);
