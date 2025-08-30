@@ -4,7 +4,16 @@ const { URL } = require("url");
 const cheerio = require("cheerio");
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://34.47.171.137",
+      "http://34.47.171.137:80",
+      "http://34.47.171.137:8080",
+    ],
+    credentials: true,
+  }),
+);
 
 app.get("/proxy", async (req, res) => {
   const target = req.query.url;
