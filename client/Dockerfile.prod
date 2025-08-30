@@ -1,0 +1,13 @@
+FROM node:24-alpine AS base
+
+FROM base AS workspace
+RUN apk add --no-cache libc6-compat
+RUN corepack enable pnpm
+
+FROM workspace AS dependencies  
+WORKDIR /app
+COPY ./client .
+RUN --mount=type=cache,target=/pnpm/store \
+    pnpm install --frozen-lockfile
+RUN pnpm build
+CMD ["pnpm", "preview"]

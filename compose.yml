@@ -1,0 +1,31 @@
+services:
+  prod-client:
+    profiles:
+      - prod
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile.prod
+    env_file:
+      - ./client/.env.prod
+    ports:
+      - "${PROD_CLIENT_WEB_PORT}:${PROD_CLIENT_WEB_PORT}"
+    networks:
+      - prod-network
+    depends_on:
+      - prod-server
+  prod-server:
+    profiles:
+      - prod
+    build:
+      context: .
+      dockerfile: ./proxy-server/Dockerfile.prod
+    env_file:
+      - ./proxy-server/.env.prod
+    ports:
+      - "${PROD_SERVER_PORT}:${PROD_SERVER_PORT}"
+    networks:
+      - prod-network
+
+networks:
+  prod-network:
+    driver: bridge
